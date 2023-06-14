@@ -1,10 +1,17 @@
-﻿using Budget_App.Models;
+﻿using Budget_App.Data;
+using Budget_App.Models;
 using Budget_App.Repositories.Interfaces;
 
 namespace Budget_App.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
+        private readonly AppDbContext _context;
+
+        public CategoryRepository(AppDbContext context)
+        {
+            _context = context;
+        }
         public void Create(Category category)
         {
             throw new NotImplementedException();
@@ -17,7 +24,7 @@ namespace Budget_App.Repositories
 
         public IEnumerable<Category> GetCategories()
         {
-            throw new NotImplementedException();
+            return _context.Categories;
         }
 
         public Category GetCategory(int id)

@@ -1,10 +1,20 @@
-﻿using Budget_App.Repositories.Interfaces;
+﻿using Budget_App.Data;
+using Budget_App.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Immutable;
 using System.Transactions;
 
 namespace Budget_App.Repositories
 {
     public class TransactionReposity : ITransactionRepository
     {
+        private readonly AppDbContext _context;
+
+        public TransactionReposity(AppDbContext context)
+        {
+            this._context = context;
+        }
+
         public void Create(Transaction transaction)
         {
             throw new NotImplementedException();
@@ -20,9 +30,9 @@ namespace Budget_App.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Transaction> GetTransactions()
+        public IQueryable<Transaction> GetTransactions()
         {
-            throw new NotImplementedException();
+            return _context.Transactions.Include(x => x.Category).AsQueryable();
         }
 
         public void Update(Transaction transaction)

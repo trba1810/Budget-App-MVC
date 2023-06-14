@@ -4,7 +4,7 @@ namespace Budget_App.Repositories.Interfaces
 {
     public interface ITransactionRepository
     {
-        IEnumerable<Transaction> GetTransactions();
+        IQueryable<Transaction> GetTransactions();
         Transaction GetTransaction(int id);
         void Delete(Transaction transaction);
         void Update(Transaction transaction);
