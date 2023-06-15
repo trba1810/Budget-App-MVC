@@ -13,9 +13,9 @@ namespace Budget_App.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetTransactions()
+        public IActionResult Index()
         {
-            return Ok(_transactionRepository.GetTransactions());
+            return View(_transactionRepository.GetTransactions());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Budget_App.Models
 {
@@ -6,6 +7,8 @@ namespace Budget_App.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
 
         public Category Category { get; set; }

@@ -2,7 +2,7 @@
 using Budget_App.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
-using System.Transactions;
+using Budget_App.Models;
 
 namespace Budget_App.Repositories
 {
@@ -32,7 +32,7 @@ namespace Budget_App.Repositories
 
         public IQueryable<Transaction> GetTransactions()
         {
-            throw new NotImplementedException();
+            return _context.Transactions.Include(x => x.Category).AsQueryable();
         }
 
         public void Update(Transaction transaction)
