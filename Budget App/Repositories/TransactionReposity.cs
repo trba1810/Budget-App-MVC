@@ -32,7 +32,7 @@ namespace Budget_App.Repositories
 
         public IQueryable<Transaction> GetTransactions()
         {
-            return _context.Transactions.Include(x => x.Category).AsQueryable();
+            throw new NotImplementedException();
         }
 
         public void Update(Transaction transaction)
