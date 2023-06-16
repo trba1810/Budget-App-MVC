@@ -17,17 +17,18 @@ namespace Budget_App.Repositories
 
         public void Create(Transaction transaction)
         {
-            throw new NotImplementedException();
+            _context.Transactions.Add(transaction);
         }
 
         public void Delete(Transaction transaction)
         {
-            throw new NotImplementedException();
+            _context.Transactions.Remove(transaction);
+            _context.SaveChanges();
         }
 
         public Transaction GetTransaction(int id)
         {
-            throw new NotImplementedException();
+            return _context.Transactions.Include(x=>x.Category).Where(x => x.Id == id).FirstOrDefault();
         }
 
         public IQueryable<Transaction> GetTransactions()
@@ -37,7 +38,16 @@ namespace Budget_App.Repositories
 
         public void Update(Transaction transaction)
         {
-            throw new NotImplementedException();
+            _context.Entry(transaction).State = EntityState.Modified;
+
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
         }
     }
 }
