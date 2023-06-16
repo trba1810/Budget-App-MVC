@@ -14,12 +14,13 @@ namespace Budget_App.Repositories
         }
         public void Create(Category category)
         {
-            throw new NotImplementedException();
+            _context.Categories.Add(category);
         }
 
         public void DeleteCategory(Category category)
         {
-            throw new NotImplementedException();
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Category> GetCategories()
@@ -29,12 +30,12 @@ namespace Budget_App.Repositories
 
         public Category GetCategory(int id)
         {
-            throw new NotImplementedException();
+            return _context.Categories.Where(c => c.Id == id).FirstOrDefault();
         }
 
         public void Update(Category category)
         {
-            throw new NotImplementedException();
+            _context.Categories.Update(category);
         }
     }
 }
