@@ -17,5 +17,17 @@ namespace Budget_App.Controllers
         {
             return View(_transactionRepository.GetTransactions());
         }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var transaction = _transactionRepository.GetTransaction(id);
+            if (transaction == null)
+            {
+                return NotFound();
+            }
+            _transactionRepository.Delete(transaction);
+            return RedirectToAction("Index");
+        }
     }
 }
