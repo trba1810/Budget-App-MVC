@@ -41,5 +41,23 @@ namespace Budget_App.Controllers
             _transactionRepository.Create(transaction);
             return RedirectToAction("Index");
         }
+
+        [HttpPut("{id}")] 
+        public IActionResult Update(int id,Transaction transaction)
+        {
+            if (id != transaction.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _transactionRepository.Update(transaction);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
