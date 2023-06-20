@@ -1,4 +1,5 @@
-﻿using Budget_App.Repositories.Interfaces;
+﻿using Budget_App.Models;
+using Budget_App.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Budget_App.Controllers
@@ -27,6 +28,17 @@ namespace Budget_App.Controllers
                 return NotFound();
             }
             _transactionRepository.Delete(transaction);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Create(Transaction transaction)
+        {
+            if (transaction == null)
+            {
+                return NotFound();
+            }
+            _transactionRepository.Create(transaction);
             return RedirectToAction("Index");
         }
     }
