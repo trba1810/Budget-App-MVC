@@ -1,4 +1,5 @@
-﻿using Budget_App.Repositories.Interfaces;
+﻿using Budget_App.Models;
+using Budget_App.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Budget_App.Controllers
@@ -16,6 +17,17 @@ namespace Budget_App.Controllers
         public IActionResult Index()
         {
             return View(_categoryRepository.GetCategories());
+        }
+
+        [HttpPost]
+        public IActionResult Create(Category category)
+        {
+            if (category == null)
+            {
+                return NotFound();
+            }
+            _categoryRepository.Create(category);
+            return RedirectToAction("Index");
         }
     }
 }
