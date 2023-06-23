@@ -29,5 +29,23 @@ namespace Budget_App.Controllers
             _categoryRepository.Create(category);
             return RedirectToAction("Index");
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id,Category category)
+        {
+            if (id != category.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _categoryRepository.Update(category);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
