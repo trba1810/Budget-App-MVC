@@ -47,5 +47,17 @@ namespace Budget_App.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            var category = _categoryRepository.GetCategory(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            _categoryRepository.Delete(category);
+            return RedirectToAction("Index");
+        }
     }
 }

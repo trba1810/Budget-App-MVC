@@ -6,7 +6,7 @@ namespace Budget_App.Repositories.Interfaces
     {
         IEnumerable<Category> GetCategories();
         Category GetCategory(int id);
-        void DeleteCategory(Category category);
+        void Delete(Category category);
         void Update(Category category);
         void Create(Category category);
     }
