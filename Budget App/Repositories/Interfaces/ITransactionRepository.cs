@@ -9,5 +9,6 @@ namespace Budget_App.Repositories.Interfaces
         void Delete(Transaction transaction);
         void Update(Transaction transaction);
         void Create(Transaction transaction);
+        IQueryable<Transaction> Search(string name);
     }
 }

@@ -49,5 +49,10 @@ namespace Budget_App.Repositories
                 throw;
             }
         }
+
+        public Transaction Search(string name)
+        {
+            return _context.Transactions.Include(x => x.Category).Where(x => x.Name == name).FirstOrDefault();
+        }
     }
 }
