@@ -50,9 +50,9 @@ namespace Budget_App.Repositories
             }
         }
 
-        public Transaction Search(string name)
+        public IQueryable<Transaction> Search(string name)
         {
-            return _context.Transactions.Include(x => x.Category).Where(x => x.Name == name).FirstOrDefault();
+            return _context.Transactions.Include(x => x.Category).Where(x => x.Name == name).AsQueryable();
         }
     }
 }
