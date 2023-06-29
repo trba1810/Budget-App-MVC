@@ -59,5 +59,12 @@ namespace Budget_App.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Search(string name) 
+        { 
+            var transactions = _transactionRepository.Search(name);
+            return RedirectToAction("Index",transactions);
+        }
     }
 }
