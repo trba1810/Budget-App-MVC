@@ -23,11 +23,7 @@ namespace Budget_App.Repositories
             _context.SaveChanges();
         }
 
-        public void DeleteCategory(Category category)
-        {
-            _context.Categories.Remove(category);
-            _context.SaveChanges();
-        }
+        
 
         public IEnumerable<Category> GetCategories()
         {
