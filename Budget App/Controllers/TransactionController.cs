@@ -1,4 +1,5 @@
 ﻿using Budget_App.Models;
+using Budget_App.Models.ViewModels;
 using Budget_App.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,7 +17,10 @@ namespace Budget_App.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(_transactionRepository.GetTransactions());
+            var transactions = _transactionRepository.GetTransactions();
+            TransactionViewModel vm = new TransactionViewModel();
+            vm.Transactions = transactions;
+            return View(vm);
         }
 
         [HttpDelete]

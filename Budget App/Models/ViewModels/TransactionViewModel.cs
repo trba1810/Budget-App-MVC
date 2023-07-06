@@ -2,7 +2,7 @@
 {
     public class TransactionViewModel
     {
-        public List<Transaction> Transactions { get; set; }
+        public IQueryable<Transaction> Transactions { get; set; }
 
         public Transaction Transaction { get; set; }
     }
