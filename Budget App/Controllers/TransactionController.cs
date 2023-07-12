@@ -23,15 +23,23 @@ namespace Budget_App.Controllers
             return View(vm);
         }
 
-        [HttpDelete]
-        public IActionResult Delete(int id)
+        [HttpGet]
+        public IActionResult DeleteWindow(int id)
         {
             var transaction = _transactionRepository.GetTransaction(id);
             if (transaction == null)
             {
                 return NotFound();
             }
-            _transactionRepository.Delete(transaction);
+            
+            return View("Delete", transaction);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            var trans = _transactionRepository.GetTransaction(id);
+            _transactionRepository.Delete(trans);
             return RedirectToAction("Index");
         }
 

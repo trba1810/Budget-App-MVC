@@ -41,34 +41,7 @@
 </div>
 
 
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form id="saveForm" method="post" >
-                
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete Transaction</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
 
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label asp-for="Transaction.Id" class="control-label"></label>
-                        <input asp-for="Transaction.Id" class=" form-control" />
-                        <span asp-validation-for="Transaction.Id" class="text-danger"></span>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btnCancel" data-dismiss="modal">Close</button>
-                    <button id="btnDelete" type="button" class="btn btn-danger" onclick="Delete()">Delete</button>
-                </div>              
-            </form>
-        </div>
-    </div>
-</div>
 
 
 <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal">
@@ -100,7 +73,7 @@
 </div>
 
 
-@*<input type="hidden" id="transactionId" />*@
+<input type="hidden" id="transactionId" />
 
 <table class="table">
     <thead>
@@ -133,13 +106,14 @@
             <td>
                 @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
                 @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
-                @*<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>*@
-                    <a type="button" class="btn btn-primary" onclick="EditForm(@item.Id)" id="EditForm">
+                    <a asp-action="DeleteWindow" asp-route-id="@item.Id">Delete</a>
+                    @*<a type="button" class="btn btn-primary" onclick="EditForm(@item.Id)" id="EditForm">
                         Edit
                     </a>
-                    <a class="btn btn-danger" id="showModal"  data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    <a class="btn btn-danger" id="showModal"  data-bs-toggle="modal" data-bs-target="@Url.Action($"Delete/{item.Id}")" >
                         Delete
                     </a>
+                    <a id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)">Delete</a>*@
             </td>
         </tr>
 
@@ -150,14 +124,12 @@
 
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    
 
     
 
 
-    @*<script>
+    <script>
         $(document).ready(function(){
             $("#btnSave").click(function(){
                 var empForm = #("saveForm").serialize();
@@ -195,9 +167,12 @@
             })
 
             var Confirm = function(id){
-                $("transactionId").val(id);
-                $("DeleteModal").modal('show');
+                console.log("test");
+                $("#transactionId").val(id);
+                $("#deleteModal").modal('show');
             }
+
+            
 
             var EditForm = function(id){
                 $.ajax({
@@ -213,6 +188,10 @@
             }
 
         })
-    </script>*@
+    </script>
 
+    
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
