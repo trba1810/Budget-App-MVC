@@ -52,7 +52,7 @@ namespace Budget_App.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPut]
+        [HttpGet]
         public IActionResult Edit(int id) 
         {
             var trans = _transactionRepository.GetTransaction(id);
