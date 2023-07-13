@@ -1,5 +1,4 @@
 ﻿using Budget_App.Models;
-using Budget_App.Models.ViewModels;
 using Budget_App.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +17,8 @@ namespace Budget_App.Controllers
         public IActionResult Index()
         {
             var transactions = _transactionRepository.GetTransactions();
-            TransactionViewModel vm = new TransactionViewModel();
-            vm.Transactions = transactions;
-            return View(vm);
+            
+            return View(transactions);
         }
 
         [HttpGet]
@@ -52,6 +50,13 @@ namespace Budget_App.Controllers
             }
             _transactionRepository.Create(transaction);
             return RedirectToAction("Index");
+        }
+
+        [HttpPut]
+        public IActionResult Edit(int id) 
+        {
+            var trans = _transactionRepository.GetTransaction(id);
+            return View("Edit",trans);
         }
 
         [HttpPut("{id}")] 

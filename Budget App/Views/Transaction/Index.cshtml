@@ -1,98 +1,32 @@
-﻿@model Budget_App.Models.ViewModels.TransactionViewModel
+﻿@model IEnumerable<Budget_App.Models.Transaction>
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>View</h1>
+<h1>Index</h1>
 
-
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Open modal
-</button>
-
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form id="saveForm" method="post">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Transaction</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label asp-for="Transaction.Name" class="control-label"></label>
-                        <input asp-for="Transaction.Name" class="form-control" />
-                        <span asp-validation-for="Transaction.Name" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btnCancel" data-dismiss="modal">Close</button>
-                    <button id="btnSave" type="button" class="btn btn-primary">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form asp-action="Update" id="EditForm" method="post">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Transaction</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <input class="updateId" type="hidden" asp-for="Transaction.Id" />
-                        <label asp-for="Transaction.Name" class="control-label"></label>
-                        <input id="transactionName" asp-for="Transaction.Name" class="form-control" />
-                        
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btnCancel" data-dismiss="modal">Close</button>
-                    <button id="btnSave" type="submit" class="btn btn-primary">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<input type="hidden" id="transactionId" />
-
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Transaction.Name)
+                @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Transaction.Date)
+                @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Transaction.Category)
+                @Html.DisplayNameFor(model => model.Category)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Transactions)
-        {
+@foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
@@ -104,94 +38,11 @@
                 @Html.DisplayFor(modelItem => item.Category.Id)
             </td>
             <td>
-                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
-                @*<a asp-action="Details" asp-route-id="@item.Id">Details</a> |*@
-                    <a asp-action="DeleteWindow" asp-route-id="@item.Id">Delete</a>
-                    @*<a type="button" class="btn btn-primary" onclick="EditForm(@item.Id)" id="EditForm">
-                        Edit
-                    </a>
-                    <a class="btn btn-danger" id="showModal"  data-bs-toggle="modal" data-bs-target="@Url.Action($"Delete/{item.Id}")" >
-                        Delete
-                    </a>
-                    <a id="showModal" class="btn btn-danger" onclick="Confirm(@item.Id)">Delete</a>*@
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
-
-            
 }
     </tbody>
 </table>
-
-
-@section Scripts {
-    
-
-    
-
-
-    <script>
-        $(document).ready(function(){
-            $("#btnSave").click(function(){
-                var empForm = #("saveForm").serialize();
-
-                $.ajax({
-                    type:"POST",
-                    url:"Home/create",
-                    data:empForm,
-                    success:function(){
-                        window.loaction.href = "Home/Index";
-                    }
-                })
-            })
-
-            $("btnCancel").click(function(){
-                window.location.href = "Home/Index";
-            })
-
-            $("btnDelete").click(function(){
-                var id = $("transactionId").val();
-                $.ajax({
-                    type:"POST",
-                    url:"Transaction/Delete",
-                    data:{id:id},
-                    success:function(result){
-                        if(result){
-                            $("transactionId").val(null);
-                            window.location.href = "Home/Index";
-                        }
-                        else{
-                            alert("error");
-                        }
-                    }
-                })
-            })
-
-            var Confirm = function(id){
-                console.log("test");
-                $("#transactionId").val(id);
-                $("#deleteModal").modal('show');
-            }
-
-            
-
-            var EditForm = function(id){
-                $.ajax({
-                    type:"POST",
-                    url:"Home/Edit",
-                    data:{id:id},
-                    success: function(transaction){
-                        $("EditModal").modal('show');
-                        $("empName").val(transaction.name);
-                        $(".updateId").val(transaction.id);
-                    }
-                })
-            }
-
-        })
-    </script>
-
-    
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
