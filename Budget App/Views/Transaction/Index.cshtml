@@ -10,6 +10,15 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-controller="Transaction" asp-action="Search">
+    <p>
+        Name: <input type="text" name="name" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+
 <table class="table">
     <thead>
         <tr>

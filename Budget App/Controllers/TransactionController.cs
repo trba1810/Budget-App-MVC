@@ -77,11 +77,11 @@ namespace Budget_App.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult Search(string name) 
         { 
             var transactions = _transactionRepository.Search(name);
-            return RedirectToAction("Index",transactions);
+            return View("Index", transactions);
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
 using Budget_App.Models;
 
+
 namespace Budget_App.Repositories
 {
     public class TransactionReposity : ITransactionRepository
@@ -52,7 +53,8 @@ namespace Budget_App.Repositories
 
         public IQueryable<Transaction> Search(string name)
         {
-            return _context.Transactions.Include(x => x.Category).Where(x => x.Name == name).AsQueryable();
+            var search = _context.Transactions.Include(x => x.Category).Where(x => x.Name == name);
+            return search;
         }
     }
 }
