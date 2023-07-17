@@ -1,6 +1,7 @@
 ﻿using Budget_App.Data;
 using Budget_App.Models;
 using Budget_App.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Budget_App.Repositories
 {
@@ -27,7 +28,7 @@ namespace Budget_App.Repositories
 
         public IEnumerable<Category> GetCategories()
         {
-            return _context.Categories;
+            return _context.Categories.Include(x => x.Transaction);
         }
 
         public Category GetCategory(int id)
