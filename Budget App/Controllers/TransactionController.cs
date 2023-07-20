@@ -2,6 +2,7 @@
 using Budget_App.Models.ViewModels;
 using Budget_App.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Budget_App.Controllers
 {
@@ -57,8 +58,17 @@ namespace Budget_App.Controllers
         [HttpGet]
         public IActionResult Edit(int id) 
         {
+            TransactionViewModel vm = new TransactionViewModel();
+            List<string> cname = new List<string>()
+            {
+                "default",
+                "sadasda",
+                "sadasd"
+            };
+            ViewBag.cname = new SelectList(cname);
             var trans = _transactionRepository.GetTransaction(id);
-            return View("Edit",trans);
+            vm.Transaction = trans;
+            return View("Edit",vm);
         }
 
         [HttpPut("{id}")] 
