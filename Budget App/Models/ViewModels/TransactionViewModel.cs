@@ -1,11 +1,13 @@
-﻿namespace Budget_App.Models.ViewModels
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace Budget_App.Models.ViewModels
 {
     public class TransactionViewModel
     {
         public Transaction Transaction { get; set; }
-        public IQueryable<Transaction> Transactions { get; set; }
+        public List<Transaction> Transactions { get; set; }
 
-        public IQueryable<Category> Categories { get; set; }
+        public List<Category> Categories { get; set; }
 
     }
 }

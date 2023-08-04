@@ -3,6 +3,9 @@ using Budget_App.Models.ViewModels;
 using Budget_App.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Budget_App.Controllers
 {
@@ -20,7 +23,7 @@ namespace Budget_App.Controllers
         {
             var transactions = _transactionRepository.GetTransactions();
             TransactionViewModel vm = new TransactionViewModel();
-            vm.Transactions = transactions;
+            vm.Transactions = transactions.ToList();
             return View(vm);
         }
 
@@ -59,14 +62,10 @@ namespace Budget_App.Controllers
         public IActionResult Edit(int id) 
         {
             TransactionViewModel vm = new TransactionViewModel();
-            List<string> cname = new List<string>()
-            {
-                "default",
-                "sadasda",
-                "sadasd"
-            };
-            ViewBag.cname = new SelectList(cname);
+            vm.Categories = _transactionRepository.GetTransactions().Select(x => x.Category).ToList();
             var trans = _transactionRepository.GetTransaction(id);
+            //ViewBag.Categories = new SelectList(_transactionRepository.GetTransactions(), "Id",
+            //                 "Category", trans.CategoryId);
             vm.Transaction = trans;
             return View("Edit",vm);
         }
