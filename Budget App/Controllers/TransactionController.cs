@@ -47,6 +47,9 @@ namespace Budget_App.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult CreateWindow() { return View("Create"); }
+
         [HttpPost]
         public IActionResult Create(Transaction transaction)
         {
@@ -62,10 +65,8 @@ namespace Budget_App.Controllers
         public IActionResult Edit(int id) 
         {
             TransactionViewModel vm = new TransactionViewModel();
-            vm.Categories = _transactionRepository.GetTransactions().Select(x => x.Category).ToList();
+            vm.Categories = _transactionRepository.GetTransactions().Select(x => x.Category).Distinct().ToList();
             var trans = _transactionRepository.GetTransaction(id);
-            //ViewBag.Categories = new SelectList(_transactionRepository.GetTransactions(), "Id",
-            //                 "Category", trans.CategoryId);
             vm.Transaction = trans;
             return View("Edit",vm);
         }
