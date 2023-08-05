@@ -48,7 +48,11 @@ namespace Budget_App.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateWindow() { return View("Create"); }
+        public IActionResult CreateWindow() 
+        { 
+            return View("Create"); 
+        }
+
 
         [HttpPost]
         public IActionResult Create(Transaction transaction)
