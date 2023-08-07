@@ -75,7 +75,7 @@ namespace Budget_App.Controllers
             return View("Edit",vm);
         }
 
-        [HttpPut("{id}")] 
+        [HttpPost("{id}")] 
         public IActionResult Update(int id,Transaction transaction)
         {
             if (id != transaction.Id)
@@ -95,9 +95,11 @@ namespace Budget_App.Controllers
 
         [HttpPost]
         public IActionResult Search(string name) 
-        { 
-            var transactions = _transactionRepository.Search(name);
-            return View("Index", transactions);
+        {
+            TransactionViewModel tr = new TransactionViewModel();
+            //var transactions = _transactionRepository.Search(name);
+            tr.Transactions = _transactionRepository.Search(name).ToList();
+            return View("Index", tr);
         }
     }
 }

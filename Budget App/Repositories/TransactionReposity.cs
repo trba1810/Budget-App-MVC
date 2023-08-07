@@ -53,7 +53,7 @@ namespace Budget_App.Repositories
 
         public IQueryable<Transaction> Search(string name)
         {
-            var search = _context.Transactions.Include(x => x.Category).Where(x => x.Name == name);
+            var search = _context.Transactions.Include(x => x.Category).Where(x => x.Name.Contains(name));
             return search;
         }
     }
