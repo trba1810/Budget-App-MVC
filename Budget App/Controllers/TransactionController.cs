@@ -75,15 +75,16 @@ namespace Budget_App.Controllers
             return View("Edit",vm);
         }
 
-        [HttpPost("{id}")] 
-        public IActionResult Update(int id,Transaction transaction)
+        [HttpPost] 
+        public IActionResult Update(TransactionViewModel vm)
         {
-            if (id != transaction.Id)
+            if (vm.Transaction.Id == 0)
             {
                 return BadRequest();
             }
             try
             {
+                Transaction transaction = vm.Transaction;
                 _transactionRepository.Update(transaction);
             }
             catch
