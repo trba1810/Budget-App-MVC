@@ -97,7 +97,6 @@ namespace Budget_App.Controllers
         public IActionResult Search(string name) 
         {
             TransactionViewModel tr = new TransactionViewModel();
-            //var transactions = _transactionRepository.Search(name);
             tr.Transactions = _transactionRepository.Search(name).ToList();
             return View("Index", tr);
         }
