@@ -16,6 +16,7 @@ namespace Budget_App.Repositories
         public void Create(Category category)
         {
             _context.Categories.Add(category);
+            _context.SaveChanges();
         }
 
         public void Delete(Category category)

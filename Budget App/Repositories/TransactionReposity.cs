@@ -19,6 +19,7 @@ namespace Budget_App.Repositories
         public void Create(Transaction transaction)
         {
             _context.Transactions.Add(transaction);
+            _context.SaveChanges();
         }
 
         public void Delete(Transaction transaction)
