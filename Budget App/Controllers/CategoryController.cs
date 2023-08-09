@@ -19,6 +19,12 @@ namespace Budget_App.Controllers
             return View(_categoryRepository.GetCategories());
         }
 
+        [HttpGet]
+        public IActionResult CreateWindow()
+        {
+            return View("Create");
+        }
+
         [HttpPost]
         public IActionResult Create(Category category)
         {
@@ -27,7 +33,7 @@ namespace Budget_App.Controllers
                 return NotFound();
             }
             _categoryRepository.Create(category);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",category);
         }
 
         [HttpPut("{id}")]
@@ -60,7 +66,7 @@ namespace Budget_App.Controllers
             return View("Delete", category);
         }
 
-        [HttpDelete]
+        [HttpPost]
         public IActionResult Delete(int id)
         {
             var category = _categoryRepository.GetCategory(id);
