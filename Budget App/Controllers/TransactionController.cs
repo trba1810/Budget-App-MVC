@@ -12,10 +12,12 @@ namespace Budget_App.Controllers
     public class TransactionController : Controller
     {
         private readonly ITransactionRepository _transactionRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public TransactionController(ITransactionRepository transactionRepository)
+        public TransactionController(ITransactionRepository transactionRepository, ICategoryRepository categoryRepository)
         {
             _transactionRepository = transactionRepository;
+            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
@@ -69,7 +71,7 @@ namespace Budget_App.Controllers
         public IActionResult Edit(int id) 
         {
             TransactionViewModel vm = new TransactionViewModel();
-            vm.Categories = _transactionRepository.GetTransactions().Select(x => x.Category).Distinct().ToList();
+            vm.Categories = _categoryRepository.GetCategories().ToList();
             var trans = _transactionRepository.GetTransaction(id);
             vm.Transaction = trans;
             return View("Edit",vm);
