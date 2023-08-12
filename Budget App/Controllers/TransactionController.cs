@@ -51,14 +51,17 @@ namespace Budget_App.Controllers
 
         [HttpGet]
         public IActionResult CreateWindow() 
-        { 
-            return View("Create"); 
+        {
+            TransactionViewModel vm = new TransactionViewModel();
+            vm.Categories = _categoryRepository.GetCategories().ToList();
+            return View("Create",vm); 
         }
 
 
         [HttpPost]
-        public IActionResult Create(Transaction transaction)
+        public IActionResult Create(TransactionViewModel vm)
         {
+            var transaction = vm.Transaction;
             if (transaction == null)
             {
                 return NotFound();
