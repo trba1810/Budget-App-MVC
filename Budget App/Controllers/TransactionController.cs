@@ -25,6 +25,7 @@ namespace Budget_App.Controllers
         {
             var transactions = _transactionRepository.GetTransactions();
             TransactionViewModel vm = new TransactionViewModel();
+            vm.Categories = _categoryRepository.GetCategories().ToList();
             vm.Transactions = transactions.ToList();
             return View(vm);
         }
@@ -105,6 +106,15 @@ namespace Budget_App.Controllers
             TransactionViewModel tr = new TransactionViewModel();
             tr.Transactions = _transactionRepository.Search(name).ToList();
             return View("Index", tr);
+        }
+
+        [HttpPost]
+        public IActionResult Filter(int id)
+        {
+            TransactionViewModel vm = new TransactionViewModel();
+            vm.Transactions = _transactionRepository.Filter(id).ToList();
+            vm.Categories = _categoryRepository.GetCategories().ToList();
+            return View("Index",vm);
         }
     }
 }

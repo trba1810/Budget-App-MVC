@@ -30,7 +30,7 @@ namespace Budget_App.Repositories
 
         public Transaction GetTransaction(int id)
         {
-            return _context.Transactions.Include(x=>x.Category).Where(x => x.Id == id).FirstOrDefault();
+            return _context.Transactions.Include(x => x.Category).Where(x => x.Id == id).FirstOrDefault();
         }
 
         public IQueryable<Transaction> GetTransactions()
@@ -56,6 +56,12 @@ namespace Budget_App.Repositories
         {
             var search = _context.Transactions.Include(x => x.Category).Where(x => x.Name.Contains(name));
             return search;
+        }
+
+        public IQueryable<Transaction> Filter(int id)
+        {
+            var filter = _context.Transactions.Include(x => x.Category).Where(x => x.CategoryId == id);
+            return filter;
         }
     }
 }

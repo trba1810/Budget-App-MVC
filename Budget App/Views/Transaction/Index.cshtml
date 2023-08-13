@@ -1,9 +1,11 @@
 ﻿@model Budget_App.Models.ViewModels.TransactionViewModel
 
 
-    @{
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var options = new SelectList(Model.Categories, "Id", "Name");
 }
 
 <h1>Index</h1>
@@ -18,6 +20,12 @@
     <button class="btn btn-primary" type="submit">Search</button>
 </form>
 
+<div class="form-group mt-2">
+    <h4 class="mb-2">Filter by Category:</h4>
+        @{Html.BeginForm("Filter", "Transaction");}
+        @Html.DropDownList("Id",options,new {onChange = "this.form.submit()"})
+        @{Html.EndForm();}
+</div>
 
 <table class="table">
     <thead>

@@ -10,5 +10,6 @@ namespace Budget_App.Repositories.Interfaces
         void Update(Transaction transaction);
         void Create(Transaction transaction);
         IQueryable<Transaction> Search(string name);
+        IQueryable<Transaction> Filter(int id);
     }
 }
