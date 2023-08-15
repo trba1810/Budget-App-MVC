@@ -9,5 +9,6 @@ namespace Budget_App.Models.ViewModels
 
         public List<Category> Categories { get; set; }
 
+
     }
 }

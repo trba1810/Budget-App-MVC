@@ -5,7 +5,6 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    var options = new SelectList(Model.Categories, "Id", "Name");
 }
 
 <h1>Index</h1>
@@ -20,14 +19,21 @@
     <button class="btn btn-primary" type="submit">Search</button>
 </form>
 
+
 <div class="form-group mt-2">
     <h4 class="mb-2">Filter by Category:</h4>
-        @{Html.BeginForm("Filter", "Transaction");}
-        @Html.DropDownList("Id",options,new {onChange = "this.form.submit()"})
-        @{Html.EndForm();}
+    <form asp-asp-controller="Transaction" asp-action="Filter">
+        <select id="Id" name="Id" onchange="this.form.submit()">
+            <option>Pick category</option>
+            @foreach (var c in Model.Categories)
+            {
+                <option value="@c.Id">@c.Name</option>
+            }
+        </select>
+    </form>
 </div>
 
-<table class="table table-dark table-striped">
+<table class="table table-dark table-striped mt-2">
     <thead>
         <tr>
             <th>
@@ -60,6 +66,6 @@
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
-}
+        }
     </tbody>
 </table>

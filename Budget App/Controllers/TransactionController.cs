@@ -24,7 +24,7 @@ namespace Budget_App.Controllers
         public IActionResult Index()
         {
             var transactions = _transactionRepository.GetTransactions();
-            TransactionViewModel vm = new TransactionViewModel();
+            TransactionViewModel vm = new TransactionViewModel();       
             vm.Categories = _categoryRepository.GetCategories().ToList();
             vm.Transactions = transactions.ToList();
             return View(vm);
@@ -103,9 +103,10 @@ namespace Budget_App.Controllers
         [HttpPost]
         public IActionResult Search(string name) 
         {
-            TransactionViewModel tr = new TransactionViewModel();
-            tr.Transactions = _transactionRepository.Search(name).ToList();
-            return View("Index", tr);
+            TransactionViewModel vm = new TransactionViewModel();
+            vm.Transactions = _transactionRepository.Search(name).ToList();
+            vm.Categories = _categoryRepository.GetCategories().ToList();
+            return View("Index", vm);
         }
 
         [HttpPost]
