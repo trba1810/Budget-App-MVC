@@ -54,8 +54,8 @@ namespace Budget_App.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public IActionResult DeleteWindow(int id)
+        [HttpGet("[action]/{id}")]
+        public IActionResult DeleteWindowCategory(int id)
         {
             var category = _categoryRepository.GetCategory(id);
             if (category == null)
