@@ -30,7 +30,7 @@ namespace Budget_App.Controllers
             return View(vm);
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult DeleteWindow(int id)
         {
             var transaction = _transactionRepository.GetTransaction(id);

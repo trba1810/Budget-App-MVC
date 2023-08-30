@@ -15,6 +15,7 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<ITransactionRepository, TransactionReposity>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddLocalization();
 
 var app = builder.Build();
 
@@ -30,6 +31,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseRequestLocalization("en-GB");
 
 app.UseAuthorization();
 
